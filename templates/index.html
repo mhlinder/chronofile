@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+<head>
+    <title>Quotidianata</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="content">
+        <b>Quotidianata</b>
+        <br />
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                    <br />
+                {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form action="" method="POST">
+            {# CSRF #}
+            {{form.hidden_tag()}}
+
+            <p>{{form.rectype}}</p>
+
+            <div id="book" class="rectypes">
+                <p>Title {{form.book_author}}</p>
+                <p>Author {{form.book_title}}</p>
+            </div><!-- book -->
+
+            <div id="beverage" class="rectypes">
+                <p>{{form.bevtype}}</p>
+                <p>Other {{form.bevtype_other}}</p>
+            </div><!-- beverage -->
+            
+           <p><input type="submit" value="Submit"></p>
+
+        </form>
+    </div>
+    <script type="text/javascript">
+    $(document).ready( function() {
+            $( "#rectype" ).change(function() {
+                $( ".rectypes" ).hide();
+                $('#' + $(this).val()).show();
+            });
+    });
+    </script>
+</body>
+</html>
